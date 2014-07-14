@@ -54,7 +54,6 @@ class LinkedList
     if index == 0
       @first_item = get_list_item(1)
     else
-      deleted = get_list_item(index)
       prev = get_list_item(index - 1)
       new_next = get_list_item(index + 1)
       prev.next_item = new_next
@@ -65,7 +64,7 @@ class LinkedList
     if @size == 0
       return nil
     end
-    
+
     @size.times do |i|
       if get_list_item(i).payload.include?(value)
         return i
