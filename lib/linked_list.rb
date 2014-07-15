@@ -50,6 +50,7 @@ class LinkedList
     end
   end
 
+
   def sort!
     swapped = true
 
@@ -72,7 +73,7 @@ class LinkedList
   end
 
   def swap_with_next(i)
-    raise IndexError if i == self.size - 1
+    raise IndexError if i >= self.size - 1
     current_item = self.get_list_item(i)
     second_item = current_item.next_item
 
@@ -82,28 +83,29 @@ class LinkedList
       current_item.next_item = second_item.next_item
     end
 
-    if @first_item == current_item
-      @first_item = second_item
-    end
-
     if i > 0
       self.get_list_item(i-1).next_item = second_item
+    elsif i == 0
+      @first_item = second_item
     end
 
     second_item.next_item = current_item
     swapped = true
   end
 
+
   def to_s
-    if @size == 0
-      "| |"
-    elsif @size > 0
-      list = []
-      @size.times do |i|
-        list.push(self.get(i))
+    result = "|"
+    current_item = @first_item
+    until current_item.nil?
+      result << " #{current_item.payload}"
+      unless current_item.last?
+        result << ","
       end
-      "| "+list.join(', ')+" |"
+      current_item = current_item.next_item
     end
+    result << " |"
+    result
   end
 
   def delete(index)
