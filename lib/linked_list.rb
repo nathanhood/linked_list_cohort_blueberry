@@ -37,6 +37,63 @@ class LinkedList
     end
   end
 
+  def sorted?
+    return true if self.size <= 1
+    @size.times do |i|
+      current_item = self.get_list_item(i)
+      unless current_item.last?
+        results = current_item <=> current_item.next_item
+        if results == 1
+          return false
+        end
+      end
+    end
+  end
+
+  def sort!
+    swapped = true
+
+    while swapped do
+      swapped = false
+
+      if self.size > 1
+        0.upto(@size - 2) do |i|
+          current_item = self.get_list_item(i)
+          second_item = current_item.next_item
+          result = current_item <=> second_item
+
+          if result == 1
+            self.swap_with_next(i)
+            swapped = true
+          end
+        end
+      end
+    end
+  end
+
+  def swap_with_next(i)
+    raise IndexError if i == self.size - 1
+    current_item = self.get_list_item(i)
+    second_item = current_item.next_item
+
+    if second_item.last?
+      current_item.next_item = nil
+    else
+      current_item.next_item = second_item.next_item
+    end
+
+    if @first_item == current_item
+      @first_item = second_item
+    end
+
+    if i > 0
+      self.get_list_item(i-1).next_item = second_item
+    end
+
+    second_item.next_item = current_item
+    swapped = true
+  end
+
   def to_s
     if @size == 0
       "| |"
@@ -85,23 +142,22 @@ class LinkedList
     current_item.payload
   end
 
-
-  private # anything below this is private.
-
-  def last_item
-    current_item = @first_item
-    until current_item.last?
-      current_item = current_item.next_item
-    end
-    current_item
-  end
-
   def get_list_item(index)
     raise IndexError if index < 0
 
     current_item = @first_item
     index.times do
       raise IndexError if !current_item
+      current_item = current_item.next_item
+    end
+    current_item
+  end
+
+  private # anything below this is private.
+
+  def last_item
+    current_item = @first_item
+    until current_item.last?
       current_item = current_item.next_item
     end
     current_item
