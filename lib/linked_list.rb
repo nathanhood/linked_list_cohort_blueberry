@@ -77,16 +77,16 @@ class LinkedList
     current_item = self.get_list_item(i)
     second_item = current_item.next_item
 
-    if second_item.last?
-      current_item.next_item = nil
-    else
-      current_item.next_item = second_item.next_item
-    end
-
     if i > 0
       self.get_list_item(i-1).next_item = second_item
     elsif i == 0
       @first_item = second_item
+    end
+
+    if second_item.last?
+      current_item.next_item = nil
+    else
+      current_item.next_item = second_item.next_item
     end
 
     second_item.next_item = current_item

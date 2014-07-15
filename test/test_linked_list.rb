@@ -291,85 +291,85 @@ class LinkedListTest < MiniTest::Unit::TestCase
     assert ll.sorted?
   end
 
-
-  ## SORTING!!!
-
-  def test_16a_sort_empty_list
-    ll = LinkedList.new()
-    ll.sort!
-    assert_equal( "| |", ll.to_s)
-  end
-
-  def test_16b_sort_single_item_list
-    ll = LinkedList.new("foo")
-    ll.sort!
-    assert_equal( "| foo |", ll.to_s)
-  end
-
-  def test_16c_sort_duplicates
-    ll = LinkedList.new("foo", "foo")
-    ll.sort!
-    assert_equal( "| foo, foo |", ll.to_s)
-  end
-
-  def test_16d_sort_unsorted_list
-    ll = LinkedList.new("foo", "bar")
-    ll.sort!
-    assert_equal( "| bar, foo |", ll.to_s)
-  end
-
-  def test_16e_sort_sorted_list
-    ll = LinkedList.new("bar", "foo")
-    ll.sort!
-    assert_equal( "| bar, foo |", ll.to_s)
-  end
-
-  def test_16f_sort_longer_list
-    ll = LinkedList.new("bar", "adda", "grille", "abba", "foo")
-    ll.sort!
-    assert_equal( "| abba, adda, bar, foo, grille |", ll.to_s)
-  end
-
-  def test_16g_sort_list_with_multiple_types
-    ll = LinkedList.new(:b, "foo", 1, "bar", 2)
-    ll.sort!
-    assert_equal( "| 1, 2, bar, foo, b |", ll.to_s)
-  end
-
   #=== Useful , if you're going to implement bubble sort: ===#
-  # Remove the 17x tests if you're going to try for a different sort algorithm.
+  # Remove the 16x tests if you're going to try for a different sort algorithm.
 
-  def test_17a_swap_middle_items
+  def test_16a_swap_middle_items
     ll = LinkedList.new("a","b","c","d")
     assert_equal "| a, b, c, d |", ll.to_s
     ll.swap_with_next(1)
     assert_equal "| a, c, b, d |", ll.to_s
   end
 
-  def test_17b_swap_first_item
+  def test_16b_swap_first_item
     ll = LinkedList.new("a","b","c","d")
     assert_equal "| a, b, c, d |", ll.to_s
     ll.swap_with_next(0)
     assert_equal "| b, a, c, d |", ll.to_s
   end
 
-  def test_17c_swap_middle_items
+  def test_16c_swap_middle_items
     ll = LinkedList.new("a","b","c","d")
     assert_equal "| a, b, c, d |", ll.to_s
     ll.swap_with_next(2)
     assert_equal "| a, b, d, c |", ll.to_s
   end
 
-  def test_17d_swap_last_item1
+  def test_16d_swap_last_item1
     ll = LinkedList.new("a","b","c","d")
     assert_equal "| a, b, c, d |", ll.to_s
   end
 
-  def test_17e_swap_last_item1
+  def test_16e_swap_last_item1
     ll = LinkedList.new("a","b","c","d")
     assert_raises IndexError do
       ll.swap_with_next(3)
     end
+  end
+
+
+  ## SORTING!!!
+
+  def test_17a_sort_empty_list
+    ll = LinkedList.new()
+    ll.sort!
+    assert_equal( "| |", ll.to_s)
+  end
+
+  def test_17b_sort_single_item_list
+    ll = LinkedList.new("foo")
+    ll.sort!
+    assert_equal( "| foo |", ll.to_s)
+  end
+
+  def test_17c_sort_duplicates
+    ll = LinkedList.new("foo", "foo")
+    ll.sort!
+    assert_equal( "| foo, foo |", ll.to_s)
+  end
+
+  def test_17d_sort_unsorted_list
+    ll = LinkedList.new("foo", "bar")
+    ll.sort!
+    assert_equal( "| bar, foo |", ll.to_s)
+  end
+
+  def test_17e_sort_sorted_list
+    ll = LinkedList.new("bar", "foo")
+    ll.sort!
+    assert_equal( "| bar, foo |", ll.to_s)
+  end
+
+  def test_17f_sort_longer_list
+    ll = LinkedList.new("bar", "adda", "grille", "abba", "foo")
+    ll.sort!
+    assert_equal( "| abba, adda, bar, foo, grille |", ll.to_s)
+  end
+
+  def test_17g_sort_list_with_multiple_types
+    ll = LinkedList.new(:b, "foo", 1, "bar", 2)
+    ll.sort!
+    assert_equal( "| 1, 2, bar, foo, b |", ll.to_s)
   end
 
 end
